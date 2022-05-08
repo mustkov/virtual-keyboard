@@ -1,0 +1,152 @@
+:root {
+  --main-color: rgb(63, 94, 251);
+  --active-color: rgb(21, 60, 255);
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  height: 100%;
+  color: white;
+  background: var(--main-color);
+  background: radial-gradient(
+    circle,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(79, 19, 31, 1) 100%
+  );
+}
+
+.container {
+  width: 1280px;
+  height: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.title {
+  text-align: center;
+}
+
+.input {
+  border-radius: 10px;
+  padding: 10px;
+  width: 1150px;
+  height: 100px;
+  resize: none;
+  outline: none;
+  border: none;
+  font-size: 34px;
+  color: var(--main-color);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0px 0px 10px var(--main-color);
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 7px;
+  width: 90%;
+}
+.language {
+  margin: 0 auto;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.key {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  background-color: #000;
+  color: var(--main-color);
+  box-shadow: 0px 0px 20px var(--main-color);
+  width: 65px;
+  height: 65px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.key:hover {
+  transform: scale(1.05, 1.05);
+}
+
+.key:active {
+  transform: scale(0.95, 0.95);
+  background-color: var(--active-color);
+}
+
+.key:focus {
+  outline: none;
+}
+
+.key-active {
+  transform: scale(0.95, 0.95);
+  background-color: var(--active-color);
+}
+
+.tilda {
+  width: 50px;
+}
+
+.key_backspace {
+  width: 150px;
+}
+
+.key_tab {
+  width: 95px;
+}
+
+.CapsLock {
+  position: relative;
+  width: 110px;
+}
+
+.key_caps::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(255, 0, 0);
+}
+
+.key_enter {
+  width: 150px;
+}
+
+.key_leftshift {
+  width: 145px;
+}
+
+.key_rightshift {
+  width: 155px;
+}
+
+.key_leftctrl {
+  width: 90px;
+}
+
+.key_space {
+  width: 510px;
+}
+.key_space:hover {
+  transform: scale(1.01, 1.05);
+}
+
+.key_lang {
+  width: 80px;
+}
