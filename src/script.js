@@ -126,3 +126,163 @@ const shiftUp = () => {
     }
   }
 };
+
+const shiftChange = (e) => {
+  if (e.type === "keydown") {
+    shiftDown();
+  }
+  if (e.type === "keyup") {
+    shiftUp();
+  }
+};
+
+const tabChange = () => {
+  if (input.selectionStart !== input.selectionEnd) {
+    let text = [...input.value];
+    text.splice(
+      input.selectionStart,
+      input.selectionEnd - input.selectionStart,
+      "    "
+    );
+    text = text.join("");
+    input.value = text;
+    cursor += 4;
+    input.setSelectionRange(cursor, cursor);
+  } else {
+    input.setSelectionRange(cursor, cursor);
+    let text = [...input.value];
+    text.splice(cursor, 0, "    ");
+    text = text.join("");
+    input.value = text;
+    cursor += 4;
+    input.setSelectionRange(cursor, cursor);
+  }
+};
+
+const backspaceChange = () => {
+  if (input.value.length !== 0 && cursor !== 0) {
+    if (input.selectionStart !== input.selectionEnd) {
+      let text = [...input.value];
+      text.splice(
+        input.selectionStart,
+        input.selectionEnd - input.selectionStart
+      );
+      text = text.join("");
+      input.value = text;
+      input.setSelectionRange(cursor, cursor);
+    } else {
+      input.setSelectionRange(cursor, cursor);
+      let text = [...input.value];
+      text.splice(cursor - 1, 1);
+      text = text.join("");
+      input.value = text;
+      cursor -= 1;
+      input.setSelectionRange(cursor, cursor);
+    }
+  }
+};
+
+const deleteChange = () => {
+  if (input.selectionStart !== input.value.length) {
+    if (input.selectionStart !== input.selectionEnd) {
+      let text = [...input.value];
+      text.splice(
+        input.selectionStart,
+        input.selectionEnd - input.selectionStart
+      );
+      text = text.join("");
+      input.value = text;
+      input.setSelectionRange(cursor, cursor);
+    } else {
+      let text = [...input.value];
+      text.splice(cursor, 1);
+      text = text.join("");
+      input.value = text;
+      input.setSelectionRange(cursor, cursor);
+    }
+  }
+};
+
+const enterChange = () => {
+  if (input.selectionStart !== input.selectionEnd) {
+    let text = [...input.value];
+    text.splice(
+      input.selectionStart,
+      input.selectionEnd - input.selectionStart,
+      "\n"
+    );
+    text = text.join("");
+    input.value = text;
+    cursor += 1;
+    input.setSelectionRange(cursor, cursor);
+  } else {
+    input.setSelectionRange(cursor, cursor);
+    let text = [...input.value];
+    text.splice(cursor, 0, "\n");
+    text = text.join("");
+    input.value = text;
+    cursor += 1;
+    input.setSelectionRange(cursor, cursor);
+  }
+};
+
+const capsChange = () => {
+  if (!capsLock.classList.contains("key_caps")) {
+    capsLock.classList.add("key_caps");
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (row[i].children[j].textContent.length === 1) {
+          row[i].children[j].innerHTML =
+            row[i].children[j].innerHTML.toUpperCase();
+        }
+      }
+    }
+    checkCaps = true;
+  } else {
+    capsLock.classList.remove("key_caps");
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (row[i].children[j].textContent.length === 1) {
+          row[i].children[j].innerHTML =
+            row[i].children[j].innerHTML.toLowerCase();
+        }
+      }
+    }
+    checkCaps = false;
+  }
+};
+
+const languageChange = () => {
+  if (language === "en") {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (
+          !capsLock.classList.contains("key_caps") &&
+          row[i].children[j].textContent.length === 1
+        ) {
+          row[i].children[j].innerHTML = keys[i][j].key.ru;
+        } else if (row[i].children[j].textContent.length === 1) {
+          row[i].children[j].innerHTML = keys[i][j].key.ru.toUpperCase();
+        }
+      }
+    }
+    language = "ru";
+    document.querySelector(".key_lang").textContent = "ru";
+  } else {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (
+          !capsLock.classList.contains("key_caps") &&
+          row[i].children[j].textContent.length === 1
+        ) {
+          row[i].children[j].innerHTML = keys[i][j].key.en;
+        } else if (row[i].children[j].textContent.length === 1) {
+          row[i].children[j].innerHTML = keys[i][j].key.en.toUpperCase();
+        }
+      }
+    }
+    language = "en";
+    document.querySelector(".key_lang").textContent = "en";
+  }
+  shiftButton = false;
+};
