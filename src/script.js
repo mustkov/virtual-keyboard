@@ -63,3 +63,66 @@ function getLocalStorage() {
 }
 
 window.addEventListener("load", getLocalStorage);
+
+let language = null;
+
+if (localStorage.getItem("language") === "ru") {
+  language = "ru";
+} else {
+  language = "en";
+}
+
+let checkCaps = null;
+if (localStorage.getItem("checkCaps") === "true") {
+  checkCaps = true;
+} else {
+  checkCaps = false;
+}
+
+let shiftButton = false;
+input.focus();
+let cursor = input.selectionStart;
+
+const shiftDown = () => {
+  if (!capsLock.classList.contains("key_caps")) {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (Object.keys(keys[i][j]).includes("shift")) {
+          row[i].children[j].innerHTML = keys[i][j].shift[language];
+        }
+      }
+    }
+  } else {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (
+          Object.keys(keys[i][j]).includes("shift") &&
+          row[i].children[j].textContent.length === 1
+        ) {
+          row[i].children[j].innerHTML =
+            keys[i][j].shift[language].toLowerCase();
+        }
+      }
+    }
+  }
+};
+
+const shiftUp = () => {
+  if (!capsLock.classList.contains("key_caps")) {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (Object.keys(keys[i][j]).includes("shift")) {
+          row[i].children[j].innerHTML = keys[i][j].key[language];
+        }
+      }
+    }
+  } else {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < row[i].children.length; j++) {
+        if (row[i].children[j].textContent.length === 1) {
+          row[i].children[j].innerHTML = keys[i][j].key[language].toLowerCase();
+        }
+      }
+    }
+  }
+};
